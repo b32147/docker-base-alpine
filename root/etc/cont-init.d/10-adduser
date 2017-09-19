@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bash
+
+PUID=${PUID:-1000}
+PGID=${PGID:-1000}
+
+groupmod -o -g "$PGID" macdata
+usermod -o -u "$PUID" macdata
+
+chown macdata:macdata /app
+chown macdata:macdata /config
+chown macdata:macdata /defaults
