@@ -1,10 +1,9 @@
-FROM scratch
-ADD rootfs.tar.xz /
+FROM alpine:3.6
 
-MAINTAINER sparklyballs
+MAINTAINER macdata
 
 # set version for s6 overlay
-ARG OVERLAY_VERSION="v1.19.1.1"
+ARG OVERLAY_VERSION="v1.20.0.0"
 ARG OVERLAY_ARCH="amd64"
 
 # environment variables
@@ -31,10 +30,9 @@ RUN \
  tar xfz \
 	/tmp/s6-overlay.tar.gz -C / && \
 
-# create abc user
- groupmod -g 1000 users && \
- useradd -u 911 -U -d /config -s /bin/false abc && \
- usermod -G users abc && \
+# create macdata user
+ useradd -u 1000 -U -d /config -s /bin/false -K MAIL_DIR=/dev/null macdata && \
+ usermod -G users macdata && \
 
 # make our folders
  mkdir -p \
